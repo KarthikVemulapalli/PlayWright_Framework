@@ -1,0 +1,65 @@
+Playwright
+
+	refer document for better understanding 'https://playwright.dev/docs/intro'
+
+	* Playwright is developed on Node JS platform.
+	* Enables reliable end to end testing for modern web apps with its Auto-Wait capability.
+	* Supports browser that uses Chromium engine (Chrome & Edge), Firefox, Safari (Web Kit) and Opera.
+	* Has in built Web Kit which uses Safari engine.
+	* Works on any OS i.e. Windows, MAC, Linux.
+	* Supports native mobile emulation of Google Chrome in Android and Mobile IOS in Safari.
+	* It has inbuilt features called 'Traces' which can take automatic screenshots, test videos, flaky test retry, logging mechanism.
+	* Playwright supports css & xpath locators. But the most preferrable one to be used is 'css'.
+
+	Architecture:
+		* The client to playwright server interactions done on 'WebSocket Protocol'.
+		* WebSocket Protocol (PlayWright):
+			1. Enable initial connection (refer as HandsShake) between client (Java, Python, JavaScript..) and Playwright server.
+			2. Multiple request and response can be operated on the initial connection made. (This makes the execution must faster than Selenium http protocol)
+
+		* http Protocol (Selenium):
+			1. Enable initial connection between client (Java, Python, JavaScript..) and Selenium server.
+			2. Only Single request and response can be operated on the connection made.
+			3. Close the connection established. (This makes the execution slower in Selenium than Playwright)
+			4. Repeat the steps 1,2,3 again for every operation to be done on browser.
+
+	Locators
+		CSS:
+			ID					- tagname#idvalue
+			class					- tagname.classvalue
+			Any attribute				- [attribute='value']
+			Any attribute partial value		- [attribute* ='value']
+			Traverse from parent to child		- ParentCSS/ParentTagname ChildCSS/ChildTagname
+
+	Playwright methods:
+		* locator()			takes the locator value to identify webelement
+		* type()			enters text into webelement (this method is deprecated)
+		* fill()			clears existing data and enters text into webelement
+		* pressSequentially()		press keywords sequentially
+		* click()			clicks on the webelement
+		* textContent()			gets the text of the element
+		* first().textContent()		gets text of first element in list of webelements
+		* last().textContent()		gets text of last element in list of webelements
+		* nth(index).textContent()	gets text of nth element using index in list of webelements
+		* allTextContents()		gets text of all webelements, retunrs as array
+		* waitForLoadState()		waits till all the microservices are loaded in network. This can be used for web applications created using microservice architecture.
+		* selectOption(value)		this method takes 'value'
+		* pause()			open playwright inspector for debugging the test cases
+		* Promise.all([step1, step2])	This method makes sure that all the steps promises are fulfilled, if not executes the steps again like a loop. Can be used during multiple steps are linked to one another. Example: Handling multiple windows
+		* isVisible()			Validates is webelement visible in the page
+		* waitFor()			waits till the webelement visible in the page
+		* frameLocator()		use to interact with iFrame in the page, this method return new 'page'
+		
+	Special Locators by Playwright
+		* GetByLabel(): used on webelements having 'label' tags. This will work for click operation, but flaky in cases while entering text.
+			page.getByLabel('LabelText')
+		* GetByRole():
+			page.getByRole('TagName', {name:'webelementText'})		//note: only few tags are supported for the getByRole()
+		* GetByText()
+			page.getByText('webelementText')
+		* filter(): filter out required webelement from a set of webelements
+			page.locator('').filter()
+			
+	Grasshopper Extent Reports
+		* 'extent.properties' file should be placed in src/test/resources path
+		* Create 'spark-config.xml' file which contains all the necessary parameters
