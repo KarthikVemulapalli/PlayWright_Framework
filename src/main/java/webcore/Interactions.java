@@ -2,9 +2,9 @@ package webcore;
 
 import org.testng.Assert;
 import com.microsoft.playwright.options.SelectOption;
-import frameworkSetup.ReportValidationsSetup;
+import frameworkSetup.ReportLogger;
 
-public class Interactions extends ReportValidationsSetup {
+public class Interactions extends ReportLogger {
 	
 	protected void click(String elementLocator) {
 		try{

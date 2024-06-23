@@ -10,7 +10,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import com.microsoft.playwright.*;;
 
-public class ReportValidationsSetup {
+public class ReportLogger {
 	
 	protected Page page = PlaywrightSetup.getPageDriver();
 	

@@ -1,4 +1,4 @@
-Playwright
+Playwright Introduction
 
 	refer document for better understanding 'https://playwright.dev/docs/intro'
 
@@ -11,7 +11,7 @@ Playwright
 	* It has inbuilt features called 'Traces' which can take automatic screenshots, test videos, flaky test retry, logging mechanism.
 	* Playwright supports css & xpath locators. But the most preferrable one to be used is 'css'.
 
-	Architecture:
+	Architecture
 		* The client to playwright server interactions done on 'WebSocket Protocol'.
 		* WebSocket Protocol (PlayWright):
 			1. Enable initial connection (refer as HandsShake) between client (Java, Python, JavaScript..) and Playwright server.
@@ -23,15 +23,60 @@ Playwright
 			3. Close the connection established. (This makes the execution slower in Selenium than Playwright)
 			4. Repeat the steps 1,2,3 again for every operation to be done on browser.
 
+
+Playwright Execution
+
+	* By default playwright executes in headless mode.
+	* The execution takes place directly on search engines
+		Chromium engine ~ chrome/edge
+		Firefox engine = Firefox UI browser
+		Webkit ~ Safari
+	* We can also expliciltly execute on browsers i.e Chrome, Edge
+	* By default playwright executes in incognito mode for browser UI mode execution.
+
+	PlayWright SetUp and Close
+		Headless Execution:
+			Playwright playobj = Playwright.create();		//Creates playwright session
+			Browser browserobj = playobj.chromium().launch();	//headless execution
+			Page pageobj = browserobj.newPage();			//Create new browser page
+			pageobj.navigate("URL")					//pageobj is used to perform all operations on browser
+			
+		Non-Headless Execution: the below launches chromium engine
+			Browser browserobj = playobj.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+
+		Browser Execution: the below code launches chrome browser
+			Browser browserobj = playobj.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
+		
+		Close:
+			pageobj.close();
+			browserobj.close();
+			playobj.close();
+
+	Maximize Browser Window
+		* Below code will maximize the window but not perfectly fit to the screen. Port sizes useful to stimulate mobile sizes.
+			Browser browserobj = playobj.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+			BrowserContext browsercontextobj = browserobj.newContext(new Browser.NewContextOptions().setViewportSize(ScreenLength, ScreenWidth));
+			Page pageobj = browsercontextobj.newPage();
+			pageobj.navigate("URL");
+
+		** The below code is used to launch maximized window fit to screen
+			ArrayList<String> browserCapabilityArguments = new ArrayList<>();
+			browserCapabilityArguments.add("--start-maximized");
+	
+			Browser browserobj = playobj.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setArgs(browserCapabilityArguments));
+			BrowserContext browsercontextobj = browserobj.newContext(new Browser.NewContextOptions().setViewportSize(null));
+			Page pageobj = browsercontextobj.newPage();
+			pageobj.navigate("URL");
+
 	Locators
 		CSS:
 			ID					- tagname#idvalue
 			class					- tagname.classvalue
 			Any attribute				- [attribute='value']
 			Any attribute partial value		- [attribute* ='value']
-			Traverse from parent to child		- ParentCSS/ParentTagname ChildCSS/ChildTagname
+			Traverse from parent to child		- ParentCSS>ParentTagname ChildCSS>ChildTagname
 
-	Playwright methods:
+	Methods
 		* locator()			takes the locator value to identify webelement
 		* type()			enters text into webelement (this method is deprecated)
 		* fill()			clears existing data and enters text into webelement
@@ -49,6 +94,7 @@ Playwright
 		* isVisible()			Validates is webelement visible in the page
 		* waitFor()			waits till the webelement visible in the page
 		* frameLocator()		use to interact with iFrame in the page, this method return new 'page'
+		* count()			get total count of webelements retrieved using locator
 		
 	Special Locators by Playwright
 		* GetByLabel(): used on webelements having 'label' tags. This will work for click operation, but flaky in cases while entering text.
@@ -60,6 +106,6 @@ Playwright
 		* filter(): filter out required webelement from a set of webelements
 			page.locator('').filter()
 			
-	Grasshopper Extent Reports
-		* 'extent.properties' file should be placed in src/test/resources path
-		* Create 'spark-config.xml' file which contains all the necessary parameters
+Grasshopper Extent Reports
+	* 'extent.properties' file should be placed in src/test/resources path
+	* Create 'spark-config.xml' file which contains all the necessary parameters

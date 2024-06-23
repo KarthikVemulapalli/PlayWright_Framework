@@ -73,7 +73,6 @@ public class PlaywrightSetup {
 				break;
 		}
 		tlPage.set(getBrowserContext().newPage());
-		getPageDriver().setDefaultTimeout(60*1000);
 		return getPageDriver();
 	}
 	
