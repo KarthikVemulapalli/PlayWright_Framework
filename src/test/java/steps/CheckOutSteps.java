@@ -5,7 +5,7 @@ import pages.CheckOutPage;
 
 public class CheckOutSteps {
 	
-	CheckOutPage checkOutPage = new CheckOutPage(); 
+	CheckOutPage checkOutPage = new CheckOutPage(Hooks.getPageDriver()); 
 
 	@And("user enters email {string} firstname {string} lastname {string} in shipping address")
 	public void enterEmailFirstAndLastNameInShippingAddress(String email, String firstName, String lastName) {

@@ -1,6 +1,12 @@
 package pages;
 
+import com.microsoft.playwright.Page;
+
 public class CheckOutPage extends HomePage {
+	
+	public CheckOutPage(Page pageDriver) {
+		super(pageDriver);
+	}
 
 	private final String css_textboxEmailAddress = "input[data-bind*='hasFocus: emailFocused']";
 	private final String xpath_textboxFirstName = "(//input[@name='firstname'])[1]";
@@ -59,7 +65,8 @@ public class CheckOutPage extends HomePage {
 		enterText(css_textboxCVV, cvv);
 		
 		waitForWebElement(css_buttonPlaceOrder);
-		capturePageScreenshotUsingJava("Check Out Page");
+		/* TODO */
+		/* Take Screenshot */
 	}
 	
 }

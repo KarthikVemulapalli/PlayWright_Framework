@@ -5,7 +5,7 @@ import pages.ShoppingCartPage;
 
 public class ShoppingCartSteps {
 
-	ShoppingCartPage shoppingCartPage = new ShoppingCartPage();
+	ShoppingCartPage shoppingCartPage = new ShoppingCartPage(Hooks.getPageDriver());
 	
 	@And("user clicks on ProceedToCheckout link")
 	public void enterProductQuantityAndAddToCart() {

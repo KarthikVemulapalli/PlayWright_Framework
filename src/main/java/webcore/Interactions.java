@@ -1,10 +1,18 @@
 package webcore;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.testng.Assert;
+import com.microsoft.playwright.ElementHandle;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Page.NavigateOptions;
 import com.microsoft.playwright.options.SelectOption;
-import frameworkSetup.ReportLogger;
 
-public class Interactions extends ReportLogger {
+public class Interactions extends ExtentReportLogger {
+	
+	protected Interactions(Page pageDriver){
+		super(pageDriver);
+	}
 	
 	protected void click(String elementLocator) {
 		try{
@@ -72,7 +80,7 @@ public class Interactions extends ReportLogger {
 		}
 	}
 	
-	protected boolean isElementPresent(String elementLocator) {
+	protected boolean isWebElementVisible(String elementLocator) {
 		boolean result = false;
 		try {
 			result = page.locator(elementLocator).isVisible();
@@ -100,12 +108,24 @@ public class Interactions extends ReportLogger {
 		}
 	}
 	
-	protected void validatePageTitle(String pageUniqueElementLocator, String expectedTitle) {
+	protected void validatePageTitle(String pageUniqueElementLocator, String expectedTitle, boolean screenshot) {
 		page.locator(pageUniqueElementLocator).waitFor();
 		String result = "";
 		try {
 			result = page.title();
-			softValidate(expectedTitle, result, "Page Title Validation");
+			if(screenshot) {
+				softValidateWithPageScreenshot(expectedTitle, result, "Page Title Validation", false);
+			} else {
+				softValidate(expectedTitle, result, "Page Title Validation");
+			}
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	protected void selectDropdownByValue(String elementLocator, String dropdownValue) {
+		try {
+			page.locator(elementLocator).selectOption(dropdownValue);
 		} catch(Throwable exception) {
 			Assert.fail(exception.getMessage());
 		}
@@ -119,9 +139,9 @@ public class Interactions extends ReportLogger {
 		}
 	}
 	
-	protected void selectDropdownByValue(String elementLocator, String dropdownValue) {
+	protected void selectDropdownByIndex(String elementLocator, int dropdownIndexValue) {
 		try {
-			page.locator(elementLocator).selectOption(dropdownValue);
+			page.locator(elementLocator).selectOption(new SelectOption().setIndex(dropdownIndexValue));
 		} catch(Throwable exception) {
 			Assert.fail(exception.getMessage());
 		}
@@ -143,7 +163,68 @@ public class Interactions extends ReportLogger {
 		}
 	}
 	
-	protected void pauseExecution() {
+	protected void pageGoBack() {
+		try {
+			page.goBack();
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	protected void pageGoForward() {
+		try {
+			page.goForward();
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	protected void setWebElementDefaultTimeOut(int timeout) {
+		try {
+			page.setDefaultTimeout(timeout);
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	protected int getTotalWebElementsCount(String elementLocator) {
+		int count = 0;
+		try {
+			count = page.locator(elementLocator).count();
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+		return count;
+	}
+	
+	public void navigateToURL(String URL) {
+		try {
+			page.navigate(URL);
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	public void navigateToURLWithMaxLoadingTime(String URL, int timeoutSeconds) {
+		NavigateOptions options = new NavigateOptions();
+		try {
+			page.navigate(URL, options.setTimeout(timeoutSeconds*1000));
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	public List<ElementHandle> getMultipleWebElements(String elementLocator) {
+		List<ElementHandle> webelements = new ArrayList<ElementHandle>();
+		try {
+			webelements = page.querySelectorAll(elementLocator);
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		} 
+		return webelements;
+	}
+	
+	protected void pauseTestExecution() {
 		try {
 			page.pause();
 		} catch(Throwable exception) {

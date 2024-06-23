@@ -5,7 +5,7 @@ import pages.ProductPage;
 
 public class ProductSteps {
 	
-	ProductPage productPage = new ProductPage();
+	ProductPage productPage = new ProductPage(Hooks.getPageDriver());
 	
 	@And("user selects the product {string}")
 	public void clicksOnProduct(String productName) {

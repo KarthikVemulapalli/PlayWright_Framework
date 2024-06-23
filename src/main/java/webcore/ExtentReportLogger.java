@@ -1,4 +1,4 @@
-package frameworkSetup;
+package webcore;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,11 +8,15 @@ import javax.imageio.ImageIO;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
-import com.microsoft.playwright.*;;
+import com.microsoft.playwright.*;
 
-public class ReportLogger {
+public class ExtentReportLogger {
 	
-	protected Page page = PlaywrightSetup.getPageDriver();
+	protected Page page;
+	
+	protected ExtentReportLogger(Page pageDriver){
+		this.page = pageDriver;
+	}
 	
 	public void softValidateWithPageScreenshot(String expectedResult, String actualResult, String reportInformation, boolean fullPageScreenshot) {
 		if(expectedResult.equals(actualResult)) {
@@ -30,15 +34,6 @@ public class ReportLogger {
 		}
 	}
 	
-	public void capturePageScreenshot(String reportInformation, boolean fullPageScreenshot) {
-		String imagePath =  takeScreenshot(fullPageScreenshot);
-		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation, MediaEntityBuilder.createScreenCaptureFromPath(imagePath).build());
-	}
-	
-	public void capturePageScreenshotUsingJava(String reportInformation) {
-		String imagePath =  takeScreenshotUsingJava();
-		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation, MediaEntityBuilder.createScreenCaptureFromPath(imagePath).build());
-	}
 	
 	private String takeScreenshot(boolean fullImage) {
 		String screenshotPath = System.getProperty("user.dir") + "/reports/screenshots/PageImage_" + System.currentTimeMillis() + ".png";
@@ -46,6 +41,12 @@ public class ReportLogger {
 		return screenshotPath;
 	}
 	
+	public void capturePageScreenshot(String reportInformation, boolean fullPageScreenshot) {
+		String imagePath =  takeScreenshot(fullPageScreenshot);
+		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation, MediaEntityBuilder.createScreenCaptureFromPath(imagePath).build());
+	}
+	
+	/* Taking Screenshots using Java is not preferred */
 	private String takeScreenshotUsingJava() {
 		String screenshotPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "screenshots";
 		try {
@@ -60,6 +61,11 @@ public class ReportLogger {
 			e.getMessage();
 		}
 		return screenshotPath;
+	}
+	
+	public void capturePageScreenshotUsingJava(String reportInformation) {
+		String imagePath =  takeScreenshotUsingJava();
+		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation, MediaEntityBuilder.createScreenCaptureFromPath(imagePath).build());
 	}
 	
 }

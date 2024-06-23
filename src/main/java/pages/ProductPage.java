@@ -1,6 +1,12 @@
 package pages;
 
+import com.microsoft.playwright.Page;
+
 public class ProductPage extends HomePage {
+	
+	public ProductPage(Page pageDriver) {
+		super(pageDriver);
+	}
 	
 	private final String css_textboxOrderQuantity = "input#qty";
 	private final String css_buttonAddToCart = "button#product-addtocart-button";
