@@ -14,7 +14,7 @@ public class ShopByBrandPage extends HomePage {
 	
 	public void clickAcePump() {
 		click(xpath_linkAcePump);
-		softValidateWithPageScreenshot(PageConstants.ACE_PUMP_PAGE_TITLE, getPageTitle(), "Ace Pump Page Title Validation", false);
+		softValidate(PageConstants.ACE_PUMP_PAGE_TITLE, getPageTitle(), "Ace Pump Page Title Validation");
 	}
 	
 }

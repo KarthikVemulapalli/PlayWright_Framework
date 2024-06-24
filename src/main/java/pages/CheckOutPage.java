@@ -63,10 +63,7 @@ public class CheckOutPage extends HomePage {
 		selectDropdownByValue(css_dropdownMonth, expMonth);
 		selectDropdownByValue(css_dropdownYear, expYear);
 		enterText(css_textboxCVV, cvv);
-		
 		waitForWebElement(css_buttonPlaceOrder);
-		/* TODO */
-		/* Take Screenshot */
 	}
 	
 }

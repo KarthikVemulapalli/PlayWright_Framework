@@ -17,7 +17,6 @@ public class ProductPage extends HomePage {
 	
 	public void enterOrderQuantity(String orderQty) {
 		enterText(css_textboxOrderQuantity, orderQty);
-		capturePageScreenshot("Order Quantity Page", true);
 	}
 	
 	public void clickAddToCart() {

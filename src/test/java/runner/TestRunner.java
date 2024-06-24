@@ -9,8 +9,9 @@ import io.cucumber.testng.CucumberOptions;
 		glue = {"steps"},
 		tags = "@ShopByBrand",
 		plugin = {
-				/* Below plugin for Cucumber report */
-				"html:reports/automation-cucumber-report.html",
+				/* 
+				 * Below plugin for Cucumber report */
+				"html:reports/Automation_Report/cucumber-report.html",
 				/* Below plugin for Grasshopper Extent report */
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 				}

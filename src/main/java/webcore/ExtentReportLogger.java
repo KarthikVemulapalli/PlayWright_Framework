@@ -18,14 +18,6 @@ public class ExtentReportLogger {
 		this.page = pageDriver;
 	}
 	
-	public void softValidateWithPageScreenshot(String expectedResult, String actualResult, String reportInformation, boolean fullPageScreenshot) {
-		if(expectedResult.equals(actualResult)) {
-			ExtentCucumberAdapter.getCurrentStep().log(Status.PASS, reportInformation+": Expected '"+expectedResult+"' matches Actual '"+actualResult+"'", MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot(fullPageScreenshot)).build());
-		} else {
-			ExtentCucumberAdapter.getCurrentStep().log(Status.FAIL, reportInformation+": Expected '"+expectedResult+"' not matches Actual '"+actualResult+"'", MediaEntityBuilder.createScreenCaptureFromPath(takeScreenshot(fullPageScreenshot)).build());
-		}
-	}
-	
 	public void softValidate(String expectedResult, String actualResult, String reportInformation) {
 		if(expectedResult.equals(actualResult)) {
 			ExtentCucumberAdapter.getCurrentStep().log(Status.PASS, reportInformation+": Expected '"+expectedResult+"' matches Actual '"+actualResult+"'");
@@ -34,9 +26,13 @@ public class ExtentReportLogger {
 		}
 	}
 	
+	public void logReportInfo(String reportInformation) {
+		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation);
+	}
 	
 	private String takeScreenshot(boolean fullImage) {
-		String screenshotPath = System.getProperty("user.dir") + "/reports/screenshots/PageImage_" + System.currentTimeMillis() + ".png";
+		long pathName = System.currentTimeMillis();
+		String screenshotPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Screenshots" + File.separator + "PageImage_" + pathName + ".png";
 		page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get(screenshotPath)).setFullPage(fullImage));
 		return screenshotPath;
 	}
@@ -48,7 +44,7 @@ public class ExtentReportLogger {
 	
 	/* Taking Screenshots using Java is not preferred */
 	private String takeScreenshotUsingJava() {
-		String screenshotPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "screenshots";
+		String screenshotPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Screenshots";
 		try {
 			Robot robot = new Robot();
 			Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());

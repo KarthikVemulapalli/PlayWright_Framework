@@ -13,9 +13,7 @@ public class HomePage extends Interactions {
 	
 	public void clickShopByBrand() {
 		waitForWebElement(xpath_linkShopByBrand);
-		/* TODO */
-		/* Take Screenshot */
-		forceClick(xpath_linkShopByBrand);
+		mandatoryClick(xpath_linkShopByBrand);
 	}
 	
 }
