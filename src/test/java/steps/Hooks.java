@@ -4,13 +4,22 @@ import java.nio.file.Paths;
 import java.util.Properties;
 import com.microsoft.playwright.Page;
 import frameworkSetup.PlaywrightSetup;
+import frameworkSetup.ReportSetup;
 import io.cucumber.java.*;
 
 public class Hooks {
-
+	
 	private PlaywrightSetup playwrightSetup;
 	private static Properties property;
 	private static Page pageDriver;
+	private static ReportSetup reportSetup;
+	
+	
+	@BeforeAll
+	public static void initialReportSetUp() {
+		reportSetup = new ReportSetup();
+		reportSetup.initialReportStep();
+	}
 	
 	@Before
 	public void initialPlaywrightSetUp() {
@@ -29,6 +38,7 @@ public class Hooks {
 	public void takeApplicationScreenshot(Scenario scenario) {
 		scenario.attach(takeScreenshot(), "image/png", "Page Screenshot");
 	}
+	
 	
 	public static Page getPageDriver() {
 		return pageDriver;

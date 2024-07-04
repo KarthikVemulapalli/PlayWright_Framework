@@ -39,6 +39,20 @@
 			<artifactId>extentreports-cucumber7-adapter</artifactId>
 			<version>1.9.2</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+    		<groupId>commons-io</groupId>
+    		<artifactId>commons-io</artifactId>
+    		<version>2.16.1</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+		<dependency>
+    		<groupId>io.cucumber</groupId>
+    		<artifactId>cucumber-picocontainer</artifactId>
+		    <version>7.18.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
