@@ -1,4 +1,4 @@
-package webcore;
+package webcore.cucumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,16 @@ import com.microsoft.playwright.Locator.ClickOptions;
 import com.microsoft.playwright.Page.*;
 import com.microsoft.playwright.options.*;
 
-public class Interactions extends ExtentReportLogger {
+public class WebInteractions extends ExtentReportLogger {
 	
-	protected Interactions(Page pageDriver){
-		super(pageDriver);
+	private Page page;
+	
+	protected WebInteractions(Page pageDriver){
+		this.page = pageDriver;
+	}
+	
+	protected Page getPageDriver() {
+		return page;
 	}
 	
 	protected void click(String elementLocator) {

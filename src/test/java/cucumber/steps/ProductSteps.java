@@ -1,4 +1,4 @@
-package steps;
+package cucumber.steps;
 
 import io.cucumber.java.en.And;
 import pages.ProductPage;

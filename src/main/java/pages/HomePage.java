@@ -1,9 +1,9 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import webcore.Interactions;
+import webcore.cucumber.CommonFunctions;
 
-public class HomePage extends Interactions {
+public class HomePage extends CommonFunctions {
 
 	public HomePage(Page pageDriver) {
 		super(pageDriver);

@@ -1,4 +1,4 @@
-package steps;
+package cucumber.steps;
 
 import io.cucumber.java.en.*;
 import pages.ShopByBrandPage;

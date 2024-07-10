@@ -1,7 +1,6 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-
 import constants.PageConstants;
 
 public class ShopByBrandPage extends HomePage {

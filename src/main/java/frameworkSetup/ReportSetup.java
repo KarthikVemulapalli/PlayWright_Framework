@@ -3,13 +3,12 @@ package frameworkSetup;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.testng.Assert;
+
+import webcore.cucumber.CommonFunctions;
 
 public class ReportSetup {
 	
@@ -20,7 +19,7 @@ public class ReportSetup {
 		File folderCreation = new File(archievedreportpath);
 		folderCreation.mkdir();
 		
-		String zipfilepath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Archieved_Reports" + File.separator + "Automation_Report_Zip_"+ getCurrentISTDate("dd-MMM-yyyy-HH-mm-ss") +".zip";
+		String zipfilepath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Archieved_Reports" + File.separator + "Automation_Report_Zip_"+ CommonFunctions.getCurrentISTDate("dd-MMM-yyyy-HH-mm-ss") +".zip";
 		zipFolder(sourcefolderpath, zipfilepath);
 		
 		deleteAutomationReportDirectory();
@@ -69,24 +68,6 @@ public class ReportSetup {
 				fis.close();
 			}
 		}
-	}
-	
-	private static String getCurrentISTDate(String DateFormat) {
-		SimpleDateFormat ISTDF = new SimpleDateFormat(DateFormat);
-		TimeZone ISTTZ = TimeZone.getTimeZone("GMT+5:30");
-		ISTDF.setTimeZone(ISTTZ);
-		
-		Date currentDate = new Date();
-		return ISTDF.format(currentDate.getTime()).toString();
-	}
-	
-	private String getCurrentESTDate(String DateFormat) {
-		SimpleDateFormat ETDF = new SimpleDateFormat(DateFormat);
-		TimeZone ETTZ = TimeZone.getTimeZone("America/New_York");
-		ETDF.setTimeZone(ETTZ);
-		
-		Date currentDate = new Date();	
-		return ETDF.format(currentDate.getTime()).toString();
 	}
 	
 }

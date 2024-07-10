@@ -1,39 +1,49 @@
-package webcore;
+package webcore.cucumber;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import javax.imageio.ImageIO;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Page;
 
-public class ExtentReportLogger {
-	
-	protected Page page;
-	
-	protected ExtentReportLogger(Page pageDriver){
-		this.page = pageDriver;
+public class CommonFunctions extends WebInteractions {
+
+	protected CommonFunctions(Page pageDriver) {
+		super(pageDriver);
+	}
+
+	public static String getCurrentISTDate(String DateFormat) {
+		SimpleDateFormat ISTDF = new SimpleDateFormat(DateFormat);
+		TimeZone ISTTZ = TimeZone.getTimeZone("GMT+5:30");
+		ISTDF.setTimeZone(ISTTZ);
+		
+		Date currentDate = new Date();
+		return ISTDF.format(currentDate.getTime()).toString();
 	}
 	
-	public void softValidate(String expectedResult, String actualResult, String reportInformation) {
-		if(expectedResult.equals(actualResult)) {
-			ExtentCucumberAdapter.getCurrentStep().log(Status.PASS, reportInformation+": Expected '"+expectedResult+"' matches Actual '"+actualResult+"'");
-		} else {
-			ExtentCucumberAdapter.getCurrentStep().log(Status.FAIL, reportInformation+": Expected '"+expectedResult+"' not matches Actual '"+actualResult+"'");
-		}
+	public static String getCurrentESTDate(String DateFormat) {
+		SimpleDateFormat ETDF = new SimpleDateFormat(DateFormat);
+		TimeZone ETTZ = TimeZone.getTimeZone("America/New_York");
+		ETDF.setTimeZone(ETTZ);
+		
+		Date currentDate = new Date();	
+		return ETDF.format(currentDate.getTime()).toString();
 	}
 	
-	public void logReportInfo(String reportInformation) {
-		ExtentCucumberAdapter.getCurrentStep().log(Status.INFO, reportInformation);
-	}
 	
 	private String takeScreenshot(boolean fullImage) {
 		long pathName = System.currentTimeMillis();
 		String screenshotPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "Screenshots" + File.separator + "PageImage_" + pathName + ".png";
-		page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get(screenshotPath)).setFullPage(fullImage));
+		getPageDriver().screenshot(new Page.ScreenshotOptions().setPath(Paths.get(screenshotPath)).setFullPage(fullImage));
 		return screenshotPath;
 	}
 	
