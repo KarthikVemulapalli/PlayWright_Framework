@@ -1,7 +1,8 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import webcore.cucumber.CommonFunctions;
+
+import webcore.CommonFunctions;
 
 public class HomePage extends CommonFunctions {
 

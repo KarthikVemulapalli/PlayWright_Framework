@@ -1,4 +1,4 @@
-package webcore.cucumber;
+package webcore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +114,14 @@ public class WebInteractions extends ExtentReportLogger {
 	protected void enterText(String elementLocator, String textValue) {
 		try {
 			page.locator(elementLocator).fill(textValue);
+		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	protected void clearTextInTextbox(String elementLocator) {
+		try {
+			page.locator(elementLocator).clear();
 		} catch(Throwable exception) {
 			Assert.fail(exception.getMessage());
 		}
@@ -417,6 +425,14 @@ public class WebInteractions extends ExtentReportLogger {
 		try {
 			page.pause();
 		} catch(Throwable exception) {
+			Assert.fail(exception.getMessage());
+		}
+	}
+	
+	protected void coolingTime(int hardWaitTime){
+		try {
+			Thread.sleep(hardWaitTime*1000);
+		} catch (InterruptedException exception) {
 			Assert.fail(exception.getMessage());
 		}
 	}

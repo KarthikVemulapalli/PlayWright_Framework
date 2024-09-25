@@ -8,7 +8,7 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.testng.Assert;
 
-import webcore.cucumber.CommonFunctions;
+import webcore.CommonFunctions;
 
 public class ReportSetup {
 	

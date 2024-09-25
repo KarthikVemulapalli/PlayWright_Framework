@@ -1,4 +1,4 @@
-package webcore.cucumber;
+package webcore;
 
 import java.awt.Rectangle;
 import java.awt.Robot;
